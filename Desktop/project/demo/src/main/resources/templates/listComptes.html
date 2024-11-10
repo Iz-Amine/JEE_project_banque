@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Account List</title>
+</head>
+<body>
+<h1>List of Accounts</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Account Code</th>
+        <th>Type</th>
+        <th>Balance</th>
+        <th>Overdraft / Interest Rate</th>
+        <th>Client</th>
+        <th>Employee</th>
+    </tr>
+    </thead>
+    <tbody><!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Clients</title>
+    </head>
+    <body>
+    <h1>List of Clients</h1>
+    <table>
+        <tr>
+            <th>Client Code</th>
+            <th>Client Name</th>
+        </tr>
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.codeClient}">Client Code</td>
+            <td th:text="${client.nomClient}">Client Name</td>
+        </tr>
+    </table>
+    <a href="/clients/add">Add New Client</a>
+    </body>
+    </html>
+
+    <tr th:each="compte : ${comptes}">
+        <td th:text="${compte.codeCompte}">Account Code</td>
+        <td th:text="${#strings.capitalize(compte.class.simpleName)}">Type</td>
+        <td th:text="${compte.solde}">Balance</td>
+        <td>
+            <span th:if="${compte instanceof T(compteCourantPackage.CompteCourant)}" th:text="${compte.decouvert}">Overdraft</span>
+            <span th:if="${compte instanceof T(compteEpargnePackage.CompteEpargne)}" th:text="${compte.taux}">Interest Rate</span>
+        </td>
+        <td th:text="${compte.client.nomClient}">Client</td>
+        <td th:text="${compte.employe.nomEmploye}">Employee</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

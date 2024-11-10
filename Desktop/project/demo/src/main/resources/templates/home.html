@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Employee Directory</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <!-- Header Section -->
+    <header class="text-center mb-4">
+        <h1 class="display-5">Home Page</h1>
+        <p class="text-muted">Welcome to the Employee Directory</p>
+    </header>
+
+    <!-- User Info Section -->
+    <section class="mb-4">
+        <div class="card shadow-sm p-4">
+            <h5 class="card-title">User Information</h5>
+            <p class="card-text">
+                <strong>Username:</strong> <span sec:authentication="principal.username"></span><br>
+                <strong>Role:</strong> <span sec:authentication="principal.authorities"></span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Navigation Links Section -->
+    <section class="mb-4">
+        <div class="card shadow-sm p-4">
+            <h5 class="card-title">Actions</h5>
+            <div class="d-flex flex-wrap gap-3">
+                <a th:href="@{/comptes/list}" class="btn btn-primary">Afficher Comptes</a>
+                <a th:href="@{/comptes/create}" class="btn btn-primary">Créer un Compte</a>
+                <a th:href="@{/clients/list}" class="btn btn-secondary">Afficher les Clients</a>
+                <a th:href="@{/clients/add}" class="btn btn-secondary">Créer un Client</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logout Section -->
+    <section class="text-center mt-5">
+        <form action="#" th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-qzH8/2F3aDo6vF+Hef0lfj0yOVXXixQJ2sI5mtCwn3y8RgyF0RzBRXkefpYrGjKQ" crossorigin="anonymous"></script>
+</body>
+</html>
