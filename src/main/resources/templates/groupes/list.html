@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Groupes List</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2 class="mb-4">Groupes List</h2>
+  <table class="table table-striped table-dark">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nom du Groupe</th>
+      <th scope="col">Nombre d'Employés</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through the list of groupes -->
+    <tr th:each="groupe : ${groupes}">
+      <td th:text="${groupe.codeGroupe}"></td>
+      <td th:text="${groupe.nomGroupe}"></td>
+      <td th:text="${#lists.size(groupe.employe)}"></td> <!-- Shows count of employees in the group -->
+      <td>
+        <a th:href="@{/groupes/{id}(id=${groupe.codeGroupe})}" class="text-info">Details</a> |
+        <a th:href="@{/groupes/{id}/edit(id=${groupe.codeGroupe})}" class="text-primary">Edit</a> |
+        <a th:href="@{/groupes/{id}/delete(id=${groupe.codeGroupe})}" class="text-danger"
+           onclick="return confirm('Are you sure you want to delete this groupe?');">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

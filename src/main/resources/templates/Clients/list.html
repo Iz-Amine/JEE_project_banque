@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Client List</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2 class="mb-4">Client List</h2>
+  <table class="table table-striped table-dark">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom du Client</th>
+      <th>Nombre de Comptes</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client : ${clients}">
+      <td th:text="${client.codeClient}"></td>
+      <td th:text="${client.nomClient}"></td>
+      <td th:text="${#lists.size(client.comptes)}"></td> <!-- Count of associated comptes -->
+      <td>
+        <a th:href="@{/clients/{id}(id=${client.codeClient})}" class="text-info">Details</a> |
+        <a th:href="@{/clients/{id}/edit(id=${client.codeClient})}" class="text-primary">Edit</a> |
+        <a th:href="@{/clients/{id}/delete(id=${client.codeClient})}" class="text-danger"
+           onclick="return confirm('Are you sure you want to delete this client?');">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a th:href="@{/clients/new}" class="btn btn-success">Add New Client</a>
+</div>
+</body>
+</html>

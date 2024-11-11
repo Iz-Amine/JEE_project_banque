@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Groupe</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2 class="mb-4">Edit Groupe</h2>
+  <form th:action="@{/groupes/{id}/edit(id=${groupe.codeGroupe})}" th:object="${groupe}" method="post">
+    <div class="form-group">
+      <label for="nomGroupe">Nom du Groupe</label>
+      <input type="text" class="form-control" id="nomGroupe" placeholder="Enter group name"
+             th:field="*{nomGroupe}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a th:href="@{/groupes}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+</body>
+</html>

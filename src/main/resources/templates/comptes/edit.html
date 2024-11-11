@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Modifier Compte</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2 class="mb-4">Modifier Compte</h2>
+
+  <!-- Display error messages if any -->
+  <div th:if="${error}" class="alert alert-danger" role="alert">
+    <p th:text="${error}"></p>
+  </div>
+
+  <form th:action="@{/comptes/{id}/edit(id=${compte.codeCompte})}" method="post" class="needs-validation" novalidate>
+    <div class="form-group">
+      <label for="type">Type de Compte :</label>
+      <select name="type" id="type" class="form-control" onchange="toggleFields()" required>
+        <option value="courant" th:selected="${compte instanceof T(com.example.mini_project.Entity.CompteCourant)}">Compte Courant</option>
+        <option value="epargne" th:selected="${compte instanceof T(com.example.mini_project.Entity.CompteEpargne)}">Compte Épargne</option>
+      </select>
+      <div class="invalid-feedback">Veuillez sélectionner un type de compte.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="codeCompte">Code du Compte :</label>
+      <input type="text" id="codeCompte" name="codeCompte" class="form-control" th:value="${compte.codeCompte}" readonly>
+    </div>
+
+    <div class="form-group">
+      <label for="solde">Solde :</label>
+      <input type="number" step="0.01" id="solde" name="solde" class="form-control" th:value="${compte.solde}" required>
+      <div class="invalid-feedback">Veuillez entrer le solde.</div>
+    </div>
+
+    <div class="form-group" id="decouvertField" style="display: none;">
+      <label for="decouvert">Découvert :</label>
+      <input type="number" step="0.01" id="decouvert" name="decouvert" class="form-control" th:value="${compte instanceof T(com.example.mini_project.Entity.CompteCourant) ? compte.decouvert : ''}">
+      <div class="invalid-feedback">Veuillez entrer le montant du découvert pour le Compte Courant.</div>
+    </div>
+
+    <div class="form-group" id="tauxField" style="display: none;">
+      <label for="taux">Taux d'Intérêt :</label>
+      <input type="number" step="0.01" id="taux" name="taux" class="form-control" th:value="${compte instanceof T(com.example.mini_project.Entity.CompteEpargne) ? compte.taux : ''}">
+      <div class="invalid-feedback">Veuillez entrer le taux d'intérêt pour le Compte Épargne.</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Modifier le Compte</button>
+    <a th:href="@{/comptes}" class="btn btn-secondary">Annuler</a>
+  </form>
+</div>
+
+<script>
+  function toggleFields() {
+    const type = document.getElementById("type").value;
+    document.getElementById("decouvertField").style.display = (type === "courant") ? "block" : "none";
+    document.getElementById("tauxField").style.display = (type === "epargne") ? "block" : "none";
+  }
+
+  // Set initial visibility based on existing account type
+  window.addEventListener('load', toggleFields);
+</script>
+</body>
+</html>

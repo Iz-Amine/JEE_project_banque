@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Employe List</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2 class="mb-4">Employe List</h2>
+  <div class="mb-4">
+    <a th:href="@{/employes/new}" class="btn btn-success">Add New Employe</a>
+  </div>
+  <table class="table table-striped table-dark">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Superviseur</th>
+      <th scope="col">Nombre de Groupes</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through the list of employees -->
+    <tr th:each="employe : ${employes}">
+      <td th:text="${employe.codeEmploye}"></td>
+      <td th:text="${employe.nomEmploye}"></td>
+      <td th:text="${employe.employeSup != null ? employe.employeSup.nomEmploye : 'N/A'}"></td>
+      <td th:text="${#lists.size(employe.groupes)}"></td> <!-- Shows count of groups associated with the employee -->
+      <td>
+        <a th:href="@{/employes/{id}(id=${employe.codeEmploye})}" class="text-info">Details</a> |
+        <a th:href="@{/employes/{id}/edit(id=${employe.codeEmploye})}" class="text-primary">Edit</a> |
+        <a th:href="@{/employes/{id}/delete(id=${employe.codeEmploye})}" class="text-danger"
+           onclick="return confirm('Are you sure you want to delete this employe?');">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+</div>
+</body>
+</html>

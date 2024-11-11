@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Employe</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Edit Employe</h2>
+    <form th:action="@{/employes/{id}/edit(id=${employe.codeEmploye})}" th:object="${employe}" method="post">
+
+        <!-- Employee Name -->
+        <div class="form-group">
+            <label for="nomEmploye">Nom de l'Employé</label>
+            <input type="text" class="form-control" id="nomEmploye" placeholder="Enter employee name"
+                   th:field="*{nomEmploye}" required>
+        </div>
+
+        <!-- Supervisor Selection
+        <div class="form-group">
+            <label for="employeSup">Superviseur (Optional)</label>
+            <select class="form-control" id="employeSup" th:field="*{employeSup}">
+                <option th:value="" th:text="'-- Select Supervisor --'"></option>-->
+                <!-- Loop through the list of supervisors
+                <option th:each="supervisor : ${supervisors}"
+                        th:value="${supervisor}"
+                        th:selected="${employe.employeSup?.codeEmploye == supervisor.codeEmploye}"
+                        th:text="${supervisor.nomEmploye}"></option>
+            </select>
+        </div>-->
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a th:href="@{/employes}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
