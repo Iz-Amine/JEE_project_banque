@@ -31,8 +31,9 @@ public class Operation implements Serializable {
     @JoinColumn(name = "CODE_EMP")
     private Employe employe;
 
-    public Operation(Date dateOperation, double montant) {
+    public Operation(Date dateOperation, double montant , Compte c)  {
         this.dateOperation = dateOperation;
         this.montant = montant;
+        compte = c ;
     }
 }

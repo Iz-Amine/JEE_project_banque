@@ -34,10 +34,11 @@ public abstract class Compte implements Serializable {
     private Collection<Operation> operations;
 
 
-    public Compte(String codeCompte, Date dateCreation, double solde) {
+    public Compte(String codeCompte, Date dateCreation, double solde , Long id) {
         super();
         this.codeCompte = codeCompte;
         this.dateCreation = dateCreation;
         this.solde = solde;
+        id = client.getCodeClient() ;
     }
 }
