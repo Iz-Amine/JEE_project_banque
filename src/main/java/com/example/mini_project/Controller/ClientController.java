@@ -1,7 +1,10 @@
 package com.example.mini_project.Controller;
 
 import com.example.mini_project.Entity.Client;
+import com.example.mini_project.Entity.Compte;
 import com.example.mini_project.Metier.ClientMetier;
+import com.example.mini_project.Metier.CompteMetier;
+import com.example.mini_project.Metier.CompteMetierImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,9 @@ public class ClientController {
 
     @Autowired
     private ClientMetier clientMetier;
+
+    @Autowired
+    private CompteMetier compteMetier;
 
     @GetMapping
     public String getAllClients(Model model) {
@@ -66,4 +72,21 @@ public class ClientController {
         clientMetier.deleteClient(id);
         return "redirect:/clients";
     }
+
+
+
+    @GetMapping("/clients/{clientId}/comptes")
+    public String viewClientComptes(@PathVariable Long clientId, Model model) {
+        List<Compte> comptes = compteMetier.findByClientId(clientId);
+        model.addAttribute("comptes", comptes);
+        return "listClientComptes";
+    }
+
+
+
+
+
+
+
+
 }

@@ -11,4 +11,13 @@ public interface CompteMetier {
     Optional<Compte> getCompteById(String id);     // Read by ID
     Compte updateCompte(String id, Compte compte); // Update
     void deleteCompte(String id);
+
+    void versement(String codeCompte, double montant);
+    void retrait(String codeCompte, double montant);
+    void virement(String codeCompteSource, String codeCompteDest, double montant);
+    Compte getCompte(String codeCompte);
+
+    Compte findById(String compteId);
+    List<Compte> findByClientId(Long clientId);
+
 }
