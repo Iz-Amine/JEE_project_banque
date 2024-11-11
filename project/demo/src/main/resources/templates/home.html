@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Employee Directory</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+
+
+<h1> home page</h1>
+
+
+
+
+
+<p>
+
+    UserName :  <span sec:authentication="principal.username"></span>
+    <br>
+    role <span sec:authentication="principal.authorities"></span>
+
+
+</p>
+<br> <br>
+<div sec:authorize="hasRole('MANAGER')"><a th:href="@{/employees/list}"  class="btn btn-primary btn-sm mb3">show employees</a>
+</div>
+<div sec:authorize="hasRole('ADMIN')"><a th:href="@{/employees/showFormAdd}" class="btn btn-primary btn-sm mb3">Add Employee</a>
+
+</div>
+
+<form acion="#" th:action="@{/logout}" method="post" >
+    <input type="submit" value="logout" />
+
+
+
+</form>
+
+
+<br><br>
+
+
+Welcome
+</body>
