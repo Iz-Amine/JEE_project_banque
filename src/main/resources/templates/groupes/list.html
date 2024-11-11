@@ -6,8 +6,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
+<!-- Include the navbar from the fragments folder-->
+<div th:replace="fragments/navbarFragment :: navbar"></div>
+
+
+
 <div class="container mt-5">
+  <!-- Main content for each page goes here -->
   <h2 class="mb-4">Groupes List</h2>
+  <a th:href="@{/groupes/new}" class="mb-4 btn btn-success">Add New Client</a>
   <table class="table table-striped table-dark">
     <thead>
     <tr>

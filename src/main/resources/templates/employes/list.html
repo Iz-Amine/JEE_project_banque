@@ -5,8 +5,16 @@
   <title>Employe List</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
+
+
 <body>
+<!-- Include the navbar from the fragments folder-->
+<div th:replace="fragments/navbarFragment :: navbar"></div>
+
+
+
 <div class="container mt-5">
+  <!-- Main content for each page goes here -->
   <h2 class="mb-4">Employe List</h2>
   <div class="mb-4">
     <a th:href="@{/employes/new}" class="btn btn-success">Add New Employe</a>
@@ -37,8 +45,6 @@
     </tr>
     </tbody>
   </table>
-
-
 </div>
 </body>
 </html>

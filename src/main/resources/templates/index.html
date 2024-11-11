@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>hello word</title>
+    <title>Main Layout with Navbar</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Welcome to my app</h1>
+<!-- Include the navbar from the fragments folder-->
+<div th:replace="fragments/navbarFragment :: navbar"></div>
+
+
+
+<div class="container mt-5">
+    <!-- Main content for each page goes here -->
+    <h2>Welcome to Mini Project</h2>
+    <p>Content specific to this page.</p>
+</div>
 </body>
 </html>
