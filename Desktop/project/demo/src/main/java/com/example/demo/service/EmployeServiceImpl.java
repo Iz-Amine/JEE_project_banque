@@ -23,6 +23,35 @@ public class EmployeServiceImpl implements EmployeService {
     }
 
     @Override
+    public List<Employe> findAll() {
+        return employeRepository.findAll();
+    }
+
+    @Override
+    public Employe save(Employe employee) {
+        return employeRepository.save(employee);
+
+    }
+
+    @Override
+    public Employe findById(Long id) {
+        return employeRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void delete(int id) {
+
+    }
+
+    @Override
+    public void delete(Long id) {
+        Employe e = employeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
+        employeRepository.delete(e);
+    }
+
+
+    @Override
     public void assignEmployeToGroupe(Long employeId, Long groupeId) {
         Employe employe = employeRepository.findById(employeId).orElse(null);
         Groupe groupe = groupeRepository.findById(groupeId).orElse(null);
@@ -36,4 +65,8 @@ public class EmployeServiceImpl implements EmployeService {
     public List<Employe> listAll() {
         return employeRepository.findAll();
     }
+
+
+
+
 }

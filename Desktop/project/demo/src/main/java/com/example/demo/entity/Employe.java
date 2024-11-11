@@ -12,8 +12,6 @@ public class Employe implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-
-
     private Long codeEmploye;
 
     @Column(name = "nomEmploye")

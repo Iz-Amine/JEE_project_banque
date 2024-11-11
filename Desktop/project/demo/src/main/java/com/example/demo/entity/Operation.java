@@ -27,10 +27,11 @@ public class Operation implements Serializable {
     private Employe employe;
 
 
-    public Operation(Date dateOperation, double montant) {
+    public Operation(Date dateOperation, double montant , Compte compte) {
         super();
         this.dateOperation = dateOperation;
         this.montant = montant;
+        this.compte = compte;
     }
     public Operation() {
         super();

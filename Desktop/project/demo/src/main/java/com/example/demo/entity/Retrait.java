@@ -8,8 +8,8 @@ import java.util.Date;
 @Entity
 @DiscriminatorValue("R")
 public class Retrait extends Operation {
-    public Retrait(Date dateOperation, double montant) {
-        super(dateOperation, montant);
+    public Retrait(Date dateOperation, double montant , Compte c) {
+        super(dateOperation, montant , c);
     }
 
     public Retrait() {

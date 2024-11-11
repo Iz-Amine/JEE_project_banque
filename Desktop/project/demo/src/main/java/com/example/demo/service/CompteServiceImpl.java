@@ -54,13 +54,19 @@ public class CompteServiceImpl implements CompteService {
         return compteRepository.findAll()  ;
     }
 
+    @Override
+    public List<Compte> findByClientId(Long clientId) {
+        return compteRepository.findByClientCodeClient(clientId);
+
+    }
+
 
     @Override
     public void versement(String codeCompte, double montant) {
         Compte compte = getCompte(codeCompte);
         if (compte != null) {
             compte.setSolde(compte.getSolde() + montant);
-            Versment versment = new Versment(new Date(), montant);
+            Versment versment = new Versment(new Date(), montant , compte);
             versment.setCompte(compte);
             operationRepository.save(versment);
         }
@@ -71,7 +77,7 @@ public class CompteServiceImpl implements CompteService {
         Compte compte = getCompte(codeCompte);
         if (compte != null) {
             compte.setSolde(compte.getSolde() - montant);
-            Retrait retrait = new Retrait(new Date(), montant);
+            Retrait retrait = new Retrait(new Date(), montant , compte);
             retrait.setCompte(compte);
             operationRepository.save(retrait);
         }
@@ -81,6 +87,11 @@ public class CompteServiceImpl implements CompteService {
     public void virement(String codeCompteSource, String codeCompteDest, double montant) {
         retrait(codeCompteSource, montant);
         versement(codeCompteDest, montant);
+    }
+
+    @Override
+    public Compte findById(String compteId) {
+        return compteRepository.findBycodeCompte(compteId);
     }
 }
 

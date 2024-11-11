@@ -23,4 +23,9 @@ public class GroupeServiceImpl implements GroupeService {
     public List<Groupe> listGroupes() {
         return groupeRepository.findAll();
     }
+
+    @Override
+    public Groupe saveGroupe(Groupe groupe) {
+        return groupeRepository.save(groupe);
+    }
 }

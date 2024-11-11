@@ -10,8 +10,11 @@ public interface CompteService {
     Compte getCompte(String codeCompte);
     List<Compte> listComptesByClient(Long clientId);
     List<Compte> listAll();
+    List<Compte> findByClientId(Long clientId);
 
     void versement(String codeCompte, double montant);
     void retrait(String codeCompte, double montant);
     void virement(String codeCompteSource, String codeCompteDest, double montant);
+
+    Compte findById(String compteId);
 }

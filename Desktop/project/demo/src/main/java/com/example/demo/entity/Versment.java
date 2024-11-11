@@ -10,11 +10,13 @@ import java.util.Date;
 public class Versment extends Operation{
 
 
-    public Versment(Date dateOperation, double montant) {
-        super(dateOperation, montant);
+    public Versment(Date dateOperation, double montant , Compte c) {
+        super(dateOperation, montant , c);
     }
 
     public Versment() {
 
     }
+
+
 }
