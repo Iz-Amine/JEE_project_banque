@@ -1,5 +1,6 @@
 package com.example.mini_project.Metier;
 
+import com.example.mini_project.Entity.Employe;
 import com.example.mini_project.Entity.Groupe;
 
 import java.util.List;
@@ -10,4 +11,6 @@ public interface GroupeMetier {
     List<Groupe> getAllGroupes();
     Groupe updateGroupe(Long id, Groupe groupe);
     void deleteGroupe(Long id);
+
+    Groupe addEmployeeToGroup(Long groupId, Employe employee);
 }

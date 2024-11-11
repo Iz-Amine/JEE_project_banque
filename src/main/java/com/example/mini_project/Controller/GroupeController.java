@@ -1,6 +1,8 @@
 package com.example.mini_project.Controller;
 
+import com.example.mini_project.Entity.Employe;
 import com.example.mini_project.Entity.Groupe;
+import com.example.mini_project.Metier.EmployeMetier;
 import com.example.mini_project.Metier.GroupeMetier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/groupes")
@@ -15,6 +18,8 @@ public class GroupeController {
 
     @Autowired
     private GroupeMetier groupeMetier;
+    @Autowired
+    private EmployeMetier employeMetier;
 
     // Show all groupes in a list view
     @GetMapping
@@ -72,5 +77,39 @@ public class GroupeController {
     public String deleteGroupe(@PathVariable Long id) {
         groupeMetier.deleteGroupe(id);
         return "redirect:/groupes"; // Redirect to the list view after deletion
+    }
+
+
+
+    // Show form to add an employee to a specific group
+    @GetMapping("/{id}/addEmployee")
+    public String showAddEmployeeForm(@PathVariable Long id, Model model) {
+        Groupe groupe = groupeMetier.getGroupeById(id);
+        if (groupe == null) {
+            return "errors/404";
+        }
+
+        // Retrieve employees not currently in this group
+        List<Employe> availableEmployees = employeMetier.listEmployes().stream()
+                .filter(e -> !groupe.getEmploye().contains(e))
+                .collect(Collectors.toList());
+
+        model.addAttribute("groupe", groupe);
+        model.addAttribute("employees", availableEmployees);
+        model.addAttribute("selectedEmployee", new Employe()); // To hold selected employee ID
+        return "groupes/addEmployee"; // Thymeleaf template for adding employee
+    }
+
+    // Handle form submission to add an employee to the group
+    @PostMapping("/{id}/addEmployee")
+    public String addEmployeeToGroup(@PathVariable Long id, @RequestParam Long employeeId) {
+        Groupe groupe = groupeMetier.getGroupeById(id);
+        Employe employe = employeMetier.getEmployeById(employeeId).orElse(null);
+
+        if (groupe != null && employe != null) {
+            groupeMetier.addEmployeeToGroup(id, employe);
+        }
+
+        return "redirect:/groupes/" + id; // Redirect back to group details
     }
 }

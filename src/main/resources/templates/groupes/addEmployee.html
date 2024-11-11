@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Employee to Group</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2 class="mb-4">Add Employee to Group: <span th:text="${groupe.nomGroupe}"></span></h2>
+
+  <form th:action="@{/groupes/{id}/addEmployee(id=${groupe.codeGroupe})}" method="post">
+    <div class="form-group">
+      <label for="employeeSelect">Select Employee</label>
+      <select class="form-control" id="employeeSelect" name="employeeId" required>
+        <option value="">-- Select an Employee --</option>
+        <option th:each="employee : ${employees}"
+                th:value="${employee.codeEmploye}"
+                th:text="${employee.nomEmploye}"></option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Employee</button>
+    <a th:href="@{/groupes/{id}(id=${groupe.codeGroupe})}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+</body>
+</html>

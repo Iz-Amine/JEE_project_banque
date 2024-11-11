@@ -18,32 +18,30 @@
     <p th:text="${#lists.size(groupe.employe)}"></p>
   </div>
 
-  <!-- List of employees -->
+  <!-- List of employees-->
   <h4>Employés dans ce Groupe:</h4>
   <table class="table table-striped table-dark mt-3">
     <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Nom</th>
-      <th scope="col">Prénom</th>
+      <th scope="col">Nom & Prénom</th>
       <th scope="col">Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="employe : ${groupe.employe}">
-      <td th:text="${employe.id}"></td>
-      <td th:text="${employe.nom}"></td>
-      <td th:text="${employe.prenom}"></td>
+      <td th:text="${employe.codeEmploye}"></td>
+      <td th:text="${employe.nomEmploye}"></td>
       <td>
-        <!-- Optionally, add any actions for each employee, e.g., remove from group -->
-        <a th:href="@{/employes/{id}/removeFromGroup(id=${employe.id})}" class="text-danger"
+        <!-- Optionally, add any actions for each employee, e.g., remove from group-->
+        <a th:href="@{/employes/{id}/removeFromGroup(id=${employe.codeEmploye})}" class="text-danger"
            onclick="return confirm('Are you sure you want to remove this employee from the group?');">Remove</a>
       </td>
     </tr>
     </tbody>
   </table>
 
-  <!-- Links for editing the group and adding a new employee -->
+  <!-- Links for editing the group and adding a new employee-->
   <div class="mt-4">
     <a th:href="@{/groupes/{id}/edit(id=${groupe.codeGroupe})}" class="btn btn-primary">Edit Group</a>
     <a th:href="@{/groupes/{id}/addEmployee(id=${groupe.codeGroupe})}" class="btn btn-success">Add Employee</a>

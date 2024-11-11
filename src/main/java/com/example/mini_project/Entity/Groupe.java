@@ -23,6 +23,10 @@ public class Groupe implements Serializable {
     @ManyToMany(mappedBy = "groupes")
     private Collection<Employe> employe;
 
+    public void addEmploye(Employe employee) {
+        this.employe.add(employee);
+    }
+
     public Groupe(String nomGroupe) {
         this.nomGroupe = nomGroupe;
     }
