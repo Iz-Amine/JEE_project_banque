@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Deposit</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<h3>Deposit Amount</h3>
+<form th:action="@{/comptes/virement/{codeComte}(codeComte=${compte.codeCompte})}" method="post">
+    <div class="form-group">
+        <label for="amountDeposit">Amount</label>
+        <input type="number" class="form-control" id="amountDeposit" name="amount" placeholder="Enter amount to deposit" required>
+    </div>
+    <button type="submit" class="btn btn-success">Deposit</button>
+    <a th:href="@{/comptes/{codeComte}(codeComte=${compte.codeCompte})}" class="btn btn-secondary">Cancel</a>
+</form>
+<!-- Deposit Form -->
+
+</body>
+</html>

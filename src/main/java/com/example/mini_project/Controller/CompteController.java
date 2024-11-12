@@ -154,26 +154,44 @@ private OperationService operationService  ;
 
 
 
+@GetMapping("/virement/{comte}")
+public String showDepositform(@PathVariable  String comte ,Model model) {
+
+        model.addAttribute("compte" , compteMetier.findById(comte))  ;
 
 
 
+        return "comptes/virement" ;
+
+
+}
+
+    @GetMapping("/retrait/{comte}")
+    public String showWithdrawForm(@PathVariable String comte ,Model model) {
+
+        model.addAttribute("compte" ,  compteMetier.findById(comte))  ;
 
 
 
-    @PostMapping("/comptes/{codeComte}/deposit")
+        return "comptes/retrait" ;
+
+
+    }
+
+    @PostMapping("/virement/{codeComte}")
     public String deposit(@PathVariable String codeComte, @RequestParam double amount) {
         compteMetier.versement(codeComte, amount);
-        return "redirect:/bank/comptes/" + codeComte;
+        return "redirect:/comptes/" + codeComte;
     }
 
     // 7. Withdraw
-    @PostMapping("/comptes/{codeComte}/withdraw")
+    @PostMapping("/retrait/{codeComte}")
     public String withdraw(@PathVariable String codeComte, @RequestParam double amount) {
         compteMetier.retrait(codeComte, amount);
-        return "redirect:/bank/comptes/" + codeComte;
+        return "redirect:/comptes/" + codeComte;
     }
 
-    @GetMapping("/comptes/{code}/operations")
+    @GetMapping("/{code}/operations")
     public String viewCompteOperations(@PathVariable String code, Model model) {
         List<Operation> operations = operationService.findByCompteId(code);
         model.addAttribute("operations", operations);
@@ -182,7 +200,7 @@ private OperationService operationService  ;
     @PostMapping("/comptes/transfer")
     public String transfer(@RequestParam String CompteId, @RequestParam double amount) {
         compteMetier.versement(CompteId, amount);
-        return "redirect:/bank/comptes";
+        return "redirect:/comptes";
     }
 
     @GetMapping("/comptes/{compteId}")

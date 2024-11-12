@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Withdraw / Deposit</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4" th:text="'Transaction for Account ' + ${compte.codeCompte}"></h2>
+ <div>
+    <h3>Withdraw Amount</h3>
+    <form th:action="@{/comptes/retrait/{codeComte}(codeComte=${compte.codeCompte})}" method="post">
+        <div class="form-group">
+            <label for="amountWithdraw">Amount</label>
+            <input type="number" class="form-control" id="amountWithdraw" name="amount" placeholder="Enter amount to withdraw" required>
+        </div>
+        <button type="submit" class="btn btn-danger">Withdraw</button>
+        <a th:href="@{/comptes/{codeComte}(codeComte=${compte.codeCompte})}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</div>
+    <!-- Deposit Form -->
+
+</body>
+</html>

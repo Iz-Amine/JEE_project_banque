@@ -40,8 +40,8 @@
 
     <!-- Navigation Links -->
     <!-- Update th:href with valid URLs -->
-    <a th:href="@{/virement/{compteId}(compteId=${compte.codeCompte})}" class="btn btn-primary">Virement au Compte</a>
-    <a th:href="@{/retrait/{compteId}(compteId=${compte.codeCompte})}" class="btn btn-primary">Retrait du Compte</a>
+    <a th:href="@{virement/{compteId}(compteId=${compte.codeCompte})}" class="btn btn-primary">Virement au Compte</a>
+    <a th:href="@{retrait/{compteId}(compteId=${compte.codeCompte})}" class="btn btn-primary">Retrait du Compte</a>
 
     <a th:href="@{/comptes}" class="btn btn-secondary">Back to List</a>
 </div>
