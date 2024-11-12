@@ -32,9 +32,18 @@ public class EmployeController {
                                 .filter(group -> !group.isDeleted())
                                 .count()
                 ));
+        // Map each employee's ID to their active supervisor's name, or "N/A" if supervisor is inactive or null
+        Map<Long, String> activeSupervisors = employes.stream()
+                .collect(Collectors.toMap(
+                        Employe::getCodeEmploye,
+                        employe -> (employe.getEmployeSup() != null && !employe.getEmployeSup().isDeleted())
+                                ? employe.getEmployeSup().getNomEmploye()
+                                : "N/A"
+                ));
 
         model.addAttribute("employes", employes);
-        model.addAttribute("activeGroupCounts", activeGroupCounts);  // Pass counts to the view
+        model.addAttribute("activeGroupCounts", activeGroupCounts);  // Pass group counts to the view
+        model.addAttribute("activeSupervisors", activeSupervisors);  // Pass active supervisor info to the view
         return "employes/list";
     }
 

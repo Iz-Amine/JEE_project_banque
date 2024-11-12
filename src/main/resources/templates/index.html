@@ -9,12 +9,55 @@
 <!-- Include the navbar from the fragments folder-->
 <div th:replace="fragments/navbarFragment :: navbar"></div>
 
-
-
 <div class="container mt-5">
-    <!-- Main content for each page goes here -->
-    <h2>Welcome to Mini Project</h2>
-    <p>Content specific to this page.</p>
+    <!-- Welcome message -->
+    <h2>Welcome to Mini Banc</h2>
+
+    <!-- Dashboard section with entity counts -->
+    <div class="row mt-5">
+        <!-- Card for Groups -->
+        <div class="col-md-3">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Groups</h5>
+                    <p class="card-text" th:text="${groupCount}">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Employees -->
+        <div class="col-md-3">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Employees</h5>
+                    <p class="card-text" th:text="${employeeCount}">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Clients -->
+        <div class="col-md-3">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Clients</h5>
+                    <p class="card-text" th:text="${clientCount}">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Accounts -->
+        <div class="col-md-3">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Compte</h5>
+                    <p class="card-text" th:text="${accountCount}">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

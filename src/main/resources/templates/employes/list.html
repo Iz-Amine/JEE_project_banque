@@ -34,11 +34,11 @@
     <tr th:each="employe : ${employes}">
       <td th:text="${employe.codeEmploye}"></td>
       <td th:text="${employe.nomEmploye}"></td>
-      <td th:text="${employe.employeSup != null ? employe.employeSup.nomEmploye : 'N/A'}"></td>
-      <td th:text="${activeGroupCounts[employe.codeEmploye]}"></td> <!-- Shows count of active groups -->
+      <td th:text="${activeSupervisors[employe.codeEmploye]}"></td>
+      <td th:text="${activeGroupCounts[employe.codeEmploye]}"></td> <!-- Count of active groups -->
 
       <td>
-        <a th:href="@{/employes/{id}(id=${employe.codeEmploye})}" class="text-info">Details</a> |
+        <!-- <a th:href="@{/employes/{id}(id=${employe.codeEmploye})}" class="text-info">Details</a> |-->
         <a th:href="@{/employes/{id}/edit(id=${employe.codeEmploye})}" class="text-primary">Edit</a> |
         <a th:href="@{/employes/{id}/delete(id=${employe.codeEmploye})}" class="text-danger"
            onclick="return confirm('Are you sure you want to delete this employe?');">Delete</a>
