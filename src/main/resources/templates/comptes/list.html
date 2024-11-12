@@ -38,7 +38,7 @@
       <th>Solde</th>
       <th>Date de Création</th>
 
-      <th>actions</th>
+
     </tr>
     </thead>
     <tbody>
@@ -52,7 +52,8 @@
 
 
        <td>
-         <a th:href="@{/comptes/{id}(id=${compte.codeCompte})}" class="text-info">Details </a>
+         <a th:href="@{/comptes/{id}(id=${compte.codeCompte})}" class="text-info">Details </a> |
+         <a th:href="@{/comptes/operations/{id}(id=${compte.codeCompte})}" class="text-info">Afficher les oprations </a>
 
        </td>
     </tr>

@@ -31,6 +31,22 @@ public class Operation implements Serializable {
     @JoinColumn(name = "CODE_EMP")
     private Employe employe;
 
+
+
+    public String getType(){
+
+        if (this instanceof Retrait) {
+            return "retrait" ;
+        }
+        else {
+            return  "versement"  ;
+        }
+    }
+
+
+
+
+
     public Operation(Date dateOperation, double montant , Compte c)  {
         this.dateOperation = dateOperation;
         this.montant = montant;

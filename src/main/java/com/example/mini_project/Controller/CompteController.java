@@ -191,11 +191,11 @@ public String showDepositform(@PathVariable  String comte ,Model model) {
         return "redirect:/comptes/" + codeComte;
     }
 
-    @GetMapping("/{code}/operations")
+    @GetMapping("/operations/{code}")
     public String viewCompteOperations(@PathVariable String code, Model model) {
         List<Operation> operations = operationService.findByCompteId(code);
         model.addAttribute("operations", operations);
-        return "listOperations";
+        return "comptes/listOperations";
     }
     @PostMapping("/comptes/transfer")
     public String transfer(@RequestParam String CompteId, @RequestParam double amount) {
