@@ -35,7 +35,8 @@
       <td th:text="${employe.codeEmploye}"></td>
       <td th:text="${employe.nomEmploye}"></td>
       <td th:text="${employe.employeSup != null ? employe.employeSup.nomEmploye : 'N/A'}"></td>
-      <td th:text="${#lists.size(employe.groupes)}"></td> <!-- Shows count of groups associated with the employee -->
+      <td th:text="${activeGroupCounts[employe.codeEmploye]}"></td> <!-- Shows count of active groups -->
+
       <td>
         <a th:href="@{/employes/{id}(id=${employe.codeEmploye})}" class="text-info">Details</a> |
         <a th:href="@{/employes/{id}/edit(id=${employe.codeEmploye})}" class="text-primary">Edit</a> |

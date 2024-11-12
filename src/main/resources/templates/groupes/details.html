@@ -25,18 +25,18 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Nom & Prénom</th>
-      <th scope="col">Actions</th>
+      <!-- <th scope="col">Actions</th>-->
     </tr>
     </thead>
     <tbody>
     <tr th:each="employe : ${groupe.employe}">
       <td th:text="${employe.codeEmploye}"></td>
       <td th:text="${employe.nomEmploye}"></td>
-      <td>
-        <!-- Optionally, add any actions for each employee, e.g., remove from group-->
+      <!-- <td>
+        Optionally, add any actions for each employee, e.g., remove from group
         <a th:href="@{/employes/{id}/removeFromGroup(id=${employe.codeEmploye})}" class="text-danger"
            onclick="return confirm('Are you sure you want to remove this employee from the group?');">Remove</a>
-      </td>
+      </td>-->
     </tr>
     </tbody>
   </table>
