@@ -30,6 +30,18 @@
             </select>
         </div>-->
 
+        <div class="form-group">
+            <label for="supervisorSelect">Supervisor (Optional)</label>
+            <select class="form-control" id="supervisorSelect" name="selectedSupervisor">
+                <option value="">-- Select Supervisor --</option>
+                <option th:each="supervisor : ${supervisors}"
+                        th:value="${supervisor.codeEmploye}"
+                        th:selected="${employe.employeSup?.codeEmploye == supervisor.codeEmploye}"
+                        th:text="${supervisor.nomEmploye}">
+                </option>
+            </select>
+        </div>
+
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Update</button>
         <a th:href="@{/employes}" class="btn btn-secondary">Cancel</a>

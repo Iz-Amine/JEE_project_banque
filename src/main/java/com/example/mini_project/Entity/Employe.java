@@ -26,6 +26,8 @@ public class Employe implements Serializable {
     @JoinColumn(name = "code_emp_sup")
     private Employe employeSup;
 
+    private boolean isDeleted = false;  // New field for soft delete
+
     @ManyToMany
     @JoinTable(name = "EMP_GR")
     private Collection<Groupe> groupes;

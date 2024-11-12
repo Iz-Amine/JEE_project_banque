@@ -5,41 +5,46 @@ import com.example.mini_project.Dao.EmployeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EmployeMtierImpl implements EmployeMetier{
+public class EmployeMtierImpl implements EmployeMetier {
+
     @Autowired
     private EmployeRepository employeRepository;
 
     @Override
     public Employe saveEmploye(Employe e) {
-        // TODO Auto-generated method stub
         return employeRepository.save(e);
     }
+
     @Override
     public List<Employe> listEmployes() {
-// TODO Auto-generated method stub
-        return employeRepository.findAll();
+        return employeRepository.findAllActive();  // Fetch only active employees
     }
 
     @Override
     public Optional<Employe> getEmployeById(Long id) {
-        return employeRepository.findById(id);
+        return employeRepository.findActiveById(id);  // Use active (non-deleted) method
     }
 
     @Override
     public Employe updateEmploye(Long id, Employe employe) {
         if (employeRepository.existsById(id)) {
-            employe.setCodeEmploye(id); // ensure the ID is maintained
+            employe.setCodeEmploye(id);  // Ensure ID is maintained
             return employeRepository.save(employe);
         }
-        return null; // Or throw an exception
+        return null;
     }
 
     @Override
     public void deleteEmploye(Long id) {
-        employeRepository.deleteById(id);
+        Optional<Employe> existingEmploye = employeRepository.findById(id);
+        existingEmploye.ifPresent(employe -> {
+            employe.setDeleted(true);  // Set isDeleted to true for soft delete
+            employeRepository.save(employe);
+        });
     }
 }

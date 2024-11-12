@@ -1,15 +1,18 @@
 package com.example.mini_project.Metier;
 
 import com.example.mini_project.Dao.GroupeRepository;
+import com.example.mini_project.Entity.Employe;
 import com.example.mini_project.Entity.Groupe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class GroupeMetierImpl implements GroupeMetier {
+
     @Autowired
     private GroupeRepository groupeRepository;
 
@@ -20,22 +23,20 @@ public class GroupeMetierImpl implements GroupeMetier {
 
     @Override
     public Groupe getGroupeById(Long id) {
-        return groupeRepository.findById(id).orElse(null);
+        return groupeRepository.findActiveById(id).orElse(null);  // Use active (non-deleted) method
     }
 
     @Override
     public List<Groupe> getAllGroupes() {
-        return groupeRepository.findAll();
+        return groupeRepository.findAllActive();  // Fetch only active groups
     }
 
     @Override
     public Groupe updateGroupe(Long id, Groupe groupe) {
-        Optional<Groupe> existingGroupe = groupeRepository.findById(id);
+        Optional<Groupe> existingGroupe = groupeRepository.findActiveById(id);  // Use active (non-deleted) method
         if (existingGroupe.isPresent()) {
             Groupe updatedGroupe = existingGroupe.get();
-            // Set fields to update here
             updatedGroupe.setNomGroupe(groupe.getNomGroupe());
-            // Add other fields if necessary
             return groupeRepository.save(updatedGroupe);
         }
         return null;
@@ -43,6 +44,21 @@ public class GroupeMetierImpl implements GroupeMetier {
 
     @Override
     public void deleteGroupe(Long id) {
-        groupeRepository.deleteById(id);
+        Optional<Groupe> existingGroupe = groupeRepository.findById(id);
+        existingGroupe.ifPresent(groupe -> {
+            groupe.setDeleted(true);  // Set isDeleted to true for soft delete
+            groupeRepository.save(groupe);
+        });
+    }
+
+    @Transactional
+    @Override
+    public Groupe addEmployeeToGroup(Long groupId, Employe employee) {
+        Groupe groupe = groupeRepository.findActiveById(groupId).orElse(null);
+        if (groupe != null && !groupe.getEmploye().contains(employee)) {
+            groupe.addEmploye(employee);
+            return groupeRepository.save(groupe);
+        }
+        return groupe;
     }
 }
