@@ -37,28 +37,24 @@
       <th>Type de Compte</th>
       <th>Solde</th>
       <th>Date de Création</th>
-      <th>Découvert / Taux d'Intérêt</th>
+
+      <th>actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="compte : ${comptes}">
       <td th:text="${compte.codeCompte}"></td>
       <td>
-        <span th:text="${compte instanceof T(com.example.mini_project.Entity.CompteCourant) ? 'Courant' : 'Épargne'}"></span>
+        <span th:text="${compte.getType() }"></span>
       </td>
       <td th:text="${compte.solde}"></td>
       <td th:text="${#dates.format(compte.dateCreation, 'dd/MM/yyyy')}"></td>
-      <td>
-        <span th:if="${compte instanceof T(com.example.mini_project.Entity.CompteCourant)}" th:text="${compte.decouvert} + ' MAD'">N/A</span>
-        <span th:if="${compte instanceof T(com.example.mini_project.Entity.CompteEpargne)}" th:text="${compte.taux} + ' %'">N/A</span>
-      </td>
-      <td>
-        <a th:href="@{/comptes/{id}(id=${compte.codeCompte})}" class="text-info">Details</a> |
-        <a th:href="@{/comptes/{id}/edit(id=${compte.codeCompte})}" class="text-primary">Edit</a> |
-        <a th:href="@{/comptes/{id}/delete(id=${compte.codeCompte})}" class="text-danger"
-           onclick="return confirm('Are you sure you want to delete this compte?');">Delete</a>
-      </td>
 
+
+       <td>
+         <a th:href="@{/comptes/{id}(id=${compte.codeCompte})}" class="text-info">Details </a>
+
+       </td>
     </tr>
     <tr th:if="${#lists.isEmpty(comptes)}">
       <td colspan="5" class="text-center">Aucun compte trouvé.</td>

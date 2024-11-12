@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Client Details</h2>
+
+    <!-- Client Information -->
+    <div class="mb-4">
+        <h4>Code du compte:</h4>
+        <p th:text="${compte.codeCompte}"></p>
+    </div>
+
+    <!-- List of Compte Objects Associated with the Client -->
+    <h4>Details du Comptes:</h4>
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th>ID Compte</th>
+            <th>Date de Création</th>
+            <th>Balance</th>
+            <th>Type</th>
+            <!-- Add more fields as needed -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Correct the table row wrapping -->
+        <tr>
+            <td th:text="${compte.codeCompte}"></td>
+            <td th:text="${compte.dateCreation}"></td>
+            <td th:text="${compte.solde}"></td>
+            <td th:text="${compte.type}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Navigation Links -->
+    <!-- Update th:href with valid URLs -->
+    <a th:href="@{/virement/{compteId}(compteId=${compte.codeCompte})}" class="btn btn-primary">Virement au Compte</a>
+    <a th:href="@{/retrait/{compteId}(compteId=${compte.codeCompte})}" class="btn btn-primary">Retrait du Compte</a>
+
+    <a th:href="@{/comptes}" class="btn btn-secondary">Back to List</a>
+</div>
+</body>
+</html>
