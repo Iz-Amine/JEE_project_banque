@@ -29,7 +29,7 @@
     <tr th:each="groupe : ${groupes}">
       <td th:text="${groupe.codeGroupe}"></td>
       <td th:text="${groupe.nomGroupe}"></td>
-      <td th:text="${#lists.size(groupe.employe)}"></td> <!-- Shows count of employees in the group -->
+      <td th:text="${activeEmployeeCounts[groupe.codeGroupe]}"></td> <!-- Shows count of active employees in the group -->
       <td>
         <a th:href="@{/groupes/{id}(id=${groupe.codeGroupe})}" class="text-info">Details</a> |
         <a th:href="@{/groupes/{id}/edit(id=${groupe.codeGroupe})}" class="text-primary">Edit</a> |

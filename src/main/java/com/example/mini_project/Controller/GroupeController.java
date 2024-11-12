@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -21,13 +22,25 @@ public class GroupeController {
     @Autowired
     private EmployeMetier employeMetier;
 
-    // Show all groupes in a list view
     @GetMapping
     public String getAllGroupes(Model model) {
         List<Groupe> groupes = groupeMetier.getAllGroupes();  // Fetch only active groups
+
+        // Create a map of group IDs to the count of active employees
+        Map<Long, Long> activeEmployeeCounts = groupes.stream()
+                .collect(Collectors.toMap(
+                        Groupe::getCodeGroupe,
+                        groupe -> groupe.getEmploye().stream()
+                                .filter(employe -> !employe.isDeleted())
+                                .count()
+                ));
+
         model.addAttribute("groupes", groupes);
-        return "groupes/list"; // Thymeleaf template (list.html)
+        model.addAttribute("activeEmployeeCounts", activeEmployeeCounts);  // Pass the map with counts to the view
+        return "groupes/list";
     }
+
+
 
     // Soft delete a groupe by ID
     @GetMapping("/{id}/delete")
@@ -78,16 +91,24 @@ public class GroupeController {
 
 
 
-    // Show details of a specific groupe
     @GetMapping("/{id}")
     public String getGroupeById(@PathVariable Long id, Model model) {
         Groupe groupe = groupeMetier.getGroupeById(id);
         if (groupe == null) {
             return "errors/404"; // Thymeleaf template for error page
         }
+
+        // Filter active employees
+        List<Employe> activeEmployees = groupe.getEmploye().stream()
+                .filter(employe -> !employe.isDeleted())
+                .collect(Collectors.toList());
+
         model.addAttribute("groupe", groupe);
-        return "groupes/details"; // Thymeleaf template (details.html)
+        model.addAttribute("activeEmployees", activeEmployees);  // Pass active employees to the view
+        model.addAttribute("activeEmployeeCount", activeEmployees.size());  // Pass the count to the view
+        return "groupes/details";
     }
+
 
     // Show form to add an employee to a specific group
     @GetMapping("/{id}/addEmployee")

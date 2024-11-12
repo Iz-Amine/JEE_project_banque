@@ -15,31 +15,27 @@
     <p th:text="${groupe.nomGroupe}"></p>
 
     <h4>Total Employés:</h4>
-    <p th:text="${#lists.size(groupe.employe)}"></p>
+    <p th:text="${activeEmployeeCount}"></p> <!-- Displays count of active employees -->
   </div>
 
-  <!-- List of employees-->
+
+
   <h4>Employés dans ce Groupe:</h4>
   <table class="table table-striped table-dark mt-3">
     <thead>
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Nom & Prénom</th>
-      <!-- <th scope="col">Actions</th>-->
     </tr>
     </thead>
     <tbody>
-    <tr th:each="employe : ${groupe.employe}">
+    <tr th:each="employe : ${activeEmployees}">
       <td th:text="${employe.codeEmploye}"></td>
       <td th:text="${employe.nomEmploye}"></td>
-      <!-- <td>
-        Optionally, add any actions for each employee, e.g., remove from group
-        <a th:href="@{/employes/{id}/removeFromGroup(id=${employe.codeEmploye})}" class="text-danger"
-           onclick="return confirm('Are you sure you want to remove this employee from the group?');">Remove</a>
-      </td>-->
     </tr>
     </tbody>
   </table>
+
 
   <!-- Links for editing the group and adding a new employee-->
   <div class="mt-4">
