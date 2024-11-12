@@ -197,11 +197,26 @@ public String showDepositform(@PathVariable  String comte ,Model model) {
         model.addAttribute("operations", operations);
         return "comptes/listOperations";
     }
-    @PostMapping("/comptes/transfer")
-    public String transfer(@RequestParam String CompteId, @RequestParam double amount) {
-        compteMetier.versement(CompteId, amount);
+
+
+   @GetMapping("/transfer")
+   public String showFormTransfer(Model model){
+        model.addAttribute("comptes" , compteMetier.listComptes());
+        return "comptes/versement"   ;
+
+   }
+
+
+
+
+    @PostMapping("/transfer")
+    public String transfer(@RequestParam String sourceAccountId, @RequestParam String destinationAccountId, @RequestParam double amount) {
+        compteMetier.virement(sourceAccountId, destinationAccountId, amount);
         return "redirect:/comptes";
     }
+
+
+
 
     @GetMapping("/comptes/{compteId}")
     public String viewCompte(@PathVariable String compteId, Model model) {
