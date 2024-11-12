@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container mt-5">
 <h3>Deposit Amount</h3>
 <form th:action="@{/comptes/virement/{codeComte}(codeComte=${compte.codeCompte})}" method="post">
     <div class="form-group">
@@ -16,6 +17,6 @@
     <a th:href="@{/comptes/{codeComte}(codeComte=${compte.codeCompte})}" class="btn btn-secondary">Cancel</a>
 </form>
 <!-- Deposit Form -->
-
+</div>
 </body>
 </html>
