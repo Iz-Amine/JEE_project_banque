@@ -27,12 +27,14 @@
         <a class="nav-link" th:href="@{/groupes}">Groupe</a>
       </li>
       <li class="nav-item">
-      <form action="#" th:action="@{/logout}" method="post">
-        <button type="submit" class="btn btn-danger">Logout</button>
-      </form>
+
       </li>
     </ul>
   </div>
+  <!-- Apply ml-auto to push the form to the right -->
+  <form action="#" th:action="@{/logout}" method="post" class="ml-auto">
+    <button type="submit" class="btn btn-danger">Logout</button>
+  </form>
 </nav>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
