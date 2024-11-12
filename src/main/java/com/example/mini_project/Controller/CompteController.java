@@ -1,9 +1,8 @@
 package com.example.mini_project.Controller;
 
-import com.example.mini_project.Entity.Compte;
-import com.example.mini_project.Entity.CompteCourant;
-import com.example.mini_project.Entity.CompteEpargne;
-import com.example.mini_project.Entity.Operation;
+import com.example.mini_project.Entity.*;
+import com.example.mini_project.Metier.ClientMetier;
+import com.example.mini_project.Metier.ClientMetierImpl;
 import com.example.mini_project.Metier.CompteMetier;
 import com.example.mini_project.Metier.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,9 @@ public class CompteController {
 
 @Autowired
 private OperationService operationService  ;
+    @Autowired
+    private ClientMetier clientMetier;
+
     // Display all accounts
     @GetMapping
     public String listComptes(@RequestParam(value = "typeFilter", required = false) String typeFilter, Model model) {
@@ -54,26 +56,34 @@ private OperationService operationService  ;
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("compte", new CompteCourant()); // Default to CompteCourant
+        model.addAttribute("clients" , clientMetier.listClient()) ;
         return "comptes/create"; // Thymeleaf template for creating a new account
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public String createCompte(@RequestParam("type") String type,
                                @RequestParam("codeCompte") String codeCompte,
                                @RequestParam("solde") double solde,
                                @RequestParam(required = false) Double decouvert,
                                @RequestParam(required = false) Double taux,
-                               @RequestParam Long clientId,
+                               @RequestParam Client clientId,
                                Model model) {
+
+        // Retrieve the Client object using clientId
+        Client client = clientMetier.getClientById(clientId.getCodeClient());
+        if (client == null) {
+            model.addAttribute("error", "Client not found. Please select a valid client.");
+            return "comptes/create";
+        }
 
         Compte compte;
         Date dateCreation = new Date(); // Set the current date
 
         // Check type and required fields
         if ("courant".equalsIgnoreCase(type) && decouvert != null) {
-            compte = new CompteCourant(codeCompte, dateCreation, solde, decouvert ,clientId );
+            compte = new CompteCourant(codeCompte, dateCreation, solde, decouvert, client);
         } else if ("epargne".equalsIgnoreCase(type) && taux != null) {
-            compte = new CompteEpargne(codeCompte, dateCreation, solde, taux  ,clientId);
+            compte = new CompteEpargne(codeCompte, dateCreation, solde, taux, client);
         } else {
             // Return to form with error if the type is invalid or fields are missing
             model.addAttribute("error", "Type de compte invalide ou champs manquants. Veuillez remplir les informations requises.");
@@ -84,7 +94,6 @@ private OperationService operationService  ;
         compteMetier.saveCompte(compte);
         return "redirect:/comptes"; // Redirect to the list of accounts after saving
     }
-
     // Display form for editing an account
     @GetMapping("/{id}/edit")
     public String editCompteForm(@PathVariable("id") String id, Model model) {
@@ -105,7 +114,7 @@ private OperationService operationService  ;
                                @RequestParam("solde") double solde,
                                @RequestParam(required = false) Double decouvert,
                                @RequestParam(required = false) Double taux,
-                               @RequestParam Long clientId ,
+                               @RequestParam Client clientId ,
                                Model model) {
 
         Compte updatedCompte;
@@ -129,6 +138,25 @@ private OperationService operationService  ;
         compteMetier.deleteCompte(id);
         return "redirect:/comptes";
     }
+
+
+    @GetMapping("/{id}")
+    public String getClientById(@PathVariable String id , Model model) {
+        Compte compte = compteMetier.getCompteBycodeCompte(id);
+        if (compte == null) {
+            return "errors/404";
+        }
+        model.addAttribute("compte", compte);
+        return "comptes/details";
+    }
+
+
+
+
+
+
+
+
 
 
 

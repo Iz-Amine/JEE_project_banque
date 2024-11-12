@@ -21,16 +21,18 @@
     <thead>
     <tr>
       <th>ID Compte</th>
-      <th>Type</th>
+      <th>date de creation</th>
       <th>Balance</th>
+      <th> type</th>
       <!-- Add more fields as needed -->
     </tr>
     </thead>
     <tbody>
     <tr th:each="compte : ${client.comptes}">
-      <td th:text="${compte.id}"></td>
-      <td th:text="${compte.type}"></td>
-      <td th:text="${compte.balance}"></td>
+      <td th:text="${compte.codeCompte}"></td>
+      <td th:text="${compte.dateCreation}"></td>
+      <td th:text="${compte.solde}"></td>
+      <td th:text="${compte.getType()}"></td>
     </tr>
     </tbody>
   </table>

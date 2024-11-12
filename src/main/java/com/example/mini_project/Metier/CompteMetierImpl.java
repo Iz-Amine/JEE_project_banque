@@ -52,6 +52,11 @@ public class CompteMetierImpl implements CompteMetier{
         compteRepository.deleteById(id);
     }
 
+    @Override
+    public Compte getCompteBycodeCompte(String code) {
+        return compteRepository.getCompteBycodeCompte(code);
+    }
+
 
     @Override
     public void versement(String codeCompte, double montant) {

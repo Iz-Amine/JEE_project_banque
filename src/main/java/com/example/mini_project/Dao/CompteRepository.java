@@ -10,6 +10,7 @@ public interface CompteRepository extends JpaRepository<Compte, String> {
     List<Compte> findByClientCodeClient(Long clientId);
     public Compte findBycodeCompte(String codeCompte);
 
+ public   Compte getCompteBycodeCompte(String code ) ;
 
 
 }

@@ -34,11 +34,25 @@ public abstract class Compte implements Serializable {
     private Collection<Operation> operations;
 
 
-    public Compte(String codeCompte, Date dateCreation, double solde , Long id) {
+    public Compte(String codeCompte, Date dateCreation, double solde , Client client) {
         super();
         this.codeCompte = codeCompte;
         this.dateCreation = dateCreation;
         this.solde = solde;
-        id = client.getCodeClient() ;
+        this.client = client ;
     }
+    public String getType() {
+        if (this instanceof CompteCourant) {
+            return "Compte Courant";
+        } else if (this instanceof CompteEpargne) {
+            return "Compte Épargne";
+        }
+        return "Unknown";
+    }
+
+
+
+
+
+
 }
